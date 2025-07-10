@@ -1,7 +1,5 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import {
   Plus,
   TrendingUp,
@@ -9,6 +7,9 @@ import {
   BarChart2,
   DollarSign,
 } from "lucide-react";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { AppSidebar } from "@/components/app-sidebar";
 import { NavActions } from "@/components/nav-actions";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
