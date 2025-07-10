@@ -62,25 +62,28 @@ export default function DashboardPage() {
   ];
 
   return (
-    <SidebarProvider>
-      <AppSidebar />
-      <div className="flex h-screen flex-col">
-        <header className="sticky top-0 z-10 flex h-14 shrink-0 items-center gap-2 border-b bg-background/95 backdrop-blur-sm">
-          <div className="flex flex-1 items-center gap-2 px-4">
-            <SidebarTrigger className="md:hidden" />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Dashboard</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
-          </div>
-          <div className="flex items-center gap-2 px-4">
-            <NavActions />
-          </div>
-        </header>
-        <main className="flex-1 overflow-y-auto p-4 md:p-6">
+    <div className="flex h-screen w-full overflow-hidden">
+      <SidebarProvider>
+        <AppSidebar />
+        <div className="flex flex-1 flex-col overflow-hidden">
+          <header className="sticky top-0 z-20 flex h-14 shrink-0 items-center gap-2 border-b bg-background/95 backdrop-blur-sm">
+            <div className="flex w-full items-center gap-2 px-4">
+              <SidebarTrigger />
+              <Breadcrumb className="flex-1">
+                <BreadcrumbList>
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>Dashboard</BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
+            </div>
+
+            {/* NAV ACTIONS AFTER BRANDING */}
+            {/* <div className="flex items-center gap-2 px-4">
+              <NavActions />
+            </div> */}
+          </header>
+          <main className="flex-1 overflow-y-auto p-4 md:p-6 pt-16 md:pt-6">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             <StatCard
               title="Total Balance"
@@ -316,9 +319,10 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
           </div>
-        </main>
-      </div>
-    </SidebarProvider>
+          </main>
+        </div>
+      </SidebarProvider>
+    </div>
   );
 }
 

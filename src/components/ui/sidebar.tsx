@@ -186,9 +186,11 @@ function Sidebar({
         <SheetContent
           side={side}
           className="bg-sidebar text-sidebar-foreground p-0 [&>button]:hidden w-[var(--sidebar-width)]"
-          style={{
-            "--sidebar-width": SIDEBAR_WIDTH_MOBILE,
-          } as React.CSSProperties}
+          style={
+            {
+              "--sidebar-width": SIDEBAR_WIDTH_MOBILE,
+            } as React.CSSProperties
+          }
           data-sidebar="sidebar"
           data-slot="sidebar"
           data-mobile="true"

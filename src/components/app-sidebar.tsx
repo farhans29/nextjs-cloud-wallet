@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { usePathname } from "next/navigation"
+import * as React from "react";
+import { usePathname } from "next/navigation";
 import {
   Home,
   Wallet,
@@ -15,52 +15,51 @@ import {
   Star,
   Folder,
   PlusCircle,
-} from "lucide-react"
+} from "lucide-react";
 
-import { NavMain } from "@/components/nav-main"
-import { NavSecondary } from "@/components/nav-secondary"
-import { NavFavorites } from "@/components/nav-favorites"
-import { NavWorkspaces } from "@/components/nav-workspaces"
-import { NavActions } from "@/components/nav-actions"
-import { Button } from "@/components/ui/button"
+import { NavMain } from "@/components/nav-main";
+import { NavSecondary } from "@/components/nav-secondary";
+import { NavFavorites } from "@/components/nav-favorites";
+import { NavWorkspaces } from "@/components/nav-workspaces";
+import { NavActions } from "@/components/nav-actions";
+import { Button } from "@/components/ui/button";
 import {
   Sidebar,
   SidebarContent,
   SidebarHeader,
-  SidebarRail,
   SidebarGroup,
   SidebarGroupLabel,
   SidebarGroupContent,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
 type NavItem = {
-  name: string
-  href: string
-  icon: React.ComponentType<{ className?: string }>
-  active: boolean
-  items?: number | null
-}
+  name: string;
+  href: string;
+  icon: React.ComponentType<{ className?: string }>;
+  active: boolean;
+  items?: number | null;
+};
 
 type NavData = {
-  main: NavItem[]
-  secondary: NavItem[]
+  main: NavItem[];
+  secondary: NavItem[];
   favorites: Array<{
-    name: string
-    href: string
-    icon: React.ComponentType<{ className?: string }>
-    active: boolean
-  }>
+    name: string;
+    href: string;
+    icon: React.ComponentType<{ className?: string }>;
+    active: boolean;
+  }>;
   workspaces: Array<{
-    name: string
-    icon: React.ComponentType<{ className?: string }>
+    name: string;
+    icon: React.ComponentType<{ className?: string }>;
     items: Array<{
-      name: string
-      href: string
-      icon: React.ComponentType<{ className?: string }>
-      active: boolean
-    }>
-  }>
-}
+      name: string;
+      href: string;
+      icon: React.ComponentType<{ className?: string }>;
+      active: boolean;
+    }>;
+  }>;
+};
 
 // Navigation data
 const navData: NavData = {
@@ -151,36 +150,37 @@ const navData: NavData = {
       items: null,
     },
   ],
-}
+};
 
 export function AppSidebar() {
-  const pathname = usePathname()
-  
+  const pathname = usePathname();
+
   // Update active states based on current path
   const updatedNavData = React.useMemo(() => {
     return {
       ...navData,
-      main: navData.main.map(item => ({
+      main: navData.main.map((item) => ({
         ...item,
-        active: pathname === item.href || 
-               (pathname.startsWith(item.href) && item.href !== '/') ||
-               (pathname === '/' && item.href === '/dashboard')
+        active:
+          pathname === item.href ||
+          (pathname.startsWith(item.href) && item.href !== "/") ||
+          (pathname === "/" && item.href === "/dashboard"),
       })),
-      secondary: navData.secondary.map(item => ({
+      secondary: navData.secondary.map((item) => ({
         ...item,
-        active: pathname === item.href
+        active: pathname === item.href,
       })),
-      favorites: navData.favorites.map(item => ({
+      favorites: navData.favorites.map((item) => ({
         ...item,
-        active: pathname === item.href
+        active: pathname === item.href,
       })),
-      workspaces: navData.workspaces.map(workspace => ({
+      workspaces: navData.workspaces.map((workspace) => ({
         ...workspace,
-        items: workspace.items.map(item => ({
+        items: workspace.items.map((item) => ({
           ...item,
-          active: pathname === item.href
-        }))
-      }))
+          active: pathname === item.href,
+        })),
+      })),
     };
   }, [pathname]);
 
@@ -190,12 +190,12 @@ export function AppSidebar() {
         <div className="flex items-center justify-between p-4">
           <div className="flex items-center space-x-2">
             <Wallet className="h-6 w-6 text-primary" />
-            <span className="font-bold">FinancePro</span>
+            <span className="font-bold">Cloud Wallet</span>
           </div>
           <NavActions />
         </div>
       </SidebarHeader>
-      
+
       <SidebarContent>
         {/* Fixed Main Navigation */}
         <div className="sticky top-0 z-10 bg-background pb-2">
@@ -240,9 +240,11 @@ export function AppSidebar() {
         </div>
       </SidebarContent>
 
-      <SidebarRail>
-        <NavSecondary items={updatedNavData.secondary} />
-      </SidebarRail>
+      {/* 
+        <SidebarRail>
+          <NavSecondary items={updatedNavData.secondary} />
+        </SidebarRail> 
+      */}
     </Sidebar>
-  )
+  );
 }
