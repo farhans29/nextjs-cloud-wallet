@@ -1,7 +1,22 @@
 /**
  * For more details on how to configure Wrangler, refer to:
  * https://developers.cloudflare.com/workers/wrangler/configuration/
- */ {
+ */
+{
+  "d1_databases": [
+    {
+      "binding": "WALLET_D1_DB",
+      "database_name": "wallet-db",
+      "database_id": "68d48256-8fe5-413f-bc1f-d092e44b17ef"
+    }
+  ],
+  "secrets_store_secrets": [
+    {
+      "store_id": "725c077e32c142f0a815ab03cf78714e",
+      "binding": "SECRET",
+      "secret_name": "secret-db"
+    }
+  ],
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "nextjs-cloud-wallet",
   "main": ".open-next/worker.js",
@@ -10,6 +25,7 @@
   "assets": {
     "binding": "ASSETS",
     "directory": ".open-next/assets"
+    // "directory": ".open-next/.build/assets"
   },
   "observability": {
     "enabled": true
