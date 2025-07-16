@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { queryDatabase } from "@/lib/db/db";
+// import { queryDatabase } from "@/lib/db/db";
 import { querySqlite } from "@/lib/db/db.sqlite";
 
 function isLocal() {
@@ -88,17 +88,11 @@ function sendErrorResponse(error: ApiError | ValidationError) {
 }
 
 // Helper function to get the database handler based on environment
-async function getDbHandler(isLocal: boolean, request?: Request) {
+async function getDbHandler(isLocal: boolean) {
     if (isLocal) {
         return querySqlite;
     } else {
-        // @ts-ignore
-        const env = (request as any)?.env || process.env;
-        if (!env.WALLET_D1_DB) {
-            throw new Error("Database binding not found");
-        }
-        return (sql: string, params: any[] = []) =>
-            queryDatabase(sql, params, env);
+        return (sql: string, params: any[] = []) => querySqlite(sql, params);
     }
 }
 
@@ -168,7 +162,7 @@ export async function POST(request: Request) {
             );
         }
 
-        const queryHandler = await getDbHandler(isLocal(), request);
+        const queryHandler = await getDbHandler(isLocal());
         await queryHandler(
             "INSERT INTO transactions (amount, description, type, category) VALUES (?, ?, ?, ?)",
             [amount, description, type, category || null]
@@ -232,7 +226,7 @@ export async function PATCH(request: Request) {
             );
         }
 
-        const queryHandler = await getDbHandler(isLocal(), request);
+        const queryHandler = await getDbHandler(isLocal());
 
         // Check if transaction exists before updating
         const existing = await queryHandler(
